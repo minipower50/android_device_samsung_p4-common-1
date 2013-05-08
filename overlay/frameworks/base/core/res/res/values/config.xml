@@ -107,8 +107,11 @@
 
     <bool name="config_forceDisableHardwareKeyboard">true</bool>
 
+    <!--  **** GANBAROU ADDITIONS STARTS **** -->
     <!-- True will enable the electron beam screen-off animation. -->
-    <bool name="config_screenOffAnimation">false</bool>
+    <bool name="config_screenOffAnimation">true</bool>
+    <bool name="config_animateScreenLights">false</bool>
+    <!--  **** GANBAROU ADDITIONS END **** -->
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">5</integer>
