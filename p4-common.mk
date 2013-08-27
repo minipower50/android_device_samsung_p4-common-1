@@ -33,7 +33,6 @@ PRODUCT_COPY_FILES := \
     $(LOCAL_PATH)/init.p3.usb.rc:root/init.p3.usb.rc
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/vold.fstab:system/etc/vold.fstab \
     $(LOCAL_PATH)/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/keylayout/sec_jack.kl:system/usr/keylayout/sec_jack.kl \
@@ -66,6 +65,7 @@ PRODUCT_PROPERTY_OVERRIDES := \
     wifi.supplicant_scan_interval=15 \
     media.stagefright.cache-params=6144/-1/30 \
     ro.sf.lcd_density=160 \
+    ro.bq.gpu_to_cpu_unsupported=1 \
     dalvik.vm.dexopt-data-only=1 \
     debug.hwui.render_dirty_regions=false
 
@@ -139,14 +139,6 @@ PRODUCT_PACKAGES += \
 
 DEVICE_PACKAGE_OVERLAYS := \
     $(LOCAL_PATH)/overlay
-
-# for bugmailer
-ifneq ($(TARGET_BUILD_VARIANT),user)
-	PRODUCT_PACKAGES += send_bug
-	PRODUCT_COPY_FILES += \
-        system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
-        system/extras/bugmailer/send_bug:system/bin/send_bug
-endif
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 
