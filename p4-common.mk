@@ -90,14 +90,15 @@ PRODUCT_PACKAGES += \
 # Audio
 PRODUCT_PACKAGES += \
         audio.a2dp.default \
-        audio.usb.default \
-        audio.primary.p3 \
-        audio_policy.p3 
+	audio.usb.default \
+        libaudioutils \
+        libtinyalsa
 
 PRODUCT_COPY_FILES += \
-        device/samsung/p4-common/libaudio/audio_policy.conf:system/etc/audio_policy.conf \
-        device/samsung/p4-common/libaudio/libasound.conf:system/etc/libasound.conf
-
+        $(LOCAL_PATH)/audio/asound.conf:system/etc/asound.conf \
+        $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
+        $(LOCAL_PATH)/audio/nvaudio_conf.xml:system/etc/nvaudio_conf.xml
+        
 # These are the hardware-specific features
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml \
