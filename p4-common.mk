@@ -83,9 +83,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
         libinvensense_mpl
 
-# Torch
+# Omni packages
 PRODUCT_PACKAGES += \
-        Torch
+        OmniTorch \
+        OmniSwitch
 
 # Audio
 PRODUCT_PACKAGES += \
