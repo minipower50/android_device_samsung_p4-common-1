@@ -2,7 +2,7 @@
 #
 # resetting zram
 echo 1 > /sys/block/zram0/reset
-# setting zram size to 150MB
+# setting zram size to 71.1MB (18%)
 echo 157286400 > /sys/block/zram0/disksize
 #
 # making zram swapable
@@ -12,4 +12,4 @@ mkswap /dev/block/zram0
 swapon /dev/block/zram0
 #
 # setting swappiness to 30
-echo 80 > /proc/sys/vm/swappiness
+echo 30 > /proc/sys/vm/swappiness
