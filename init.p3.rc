@@ -40,8 +40,13 @@ on fs
     exec sfsck /dev/block/platform/sdhci-tegra.3/by-num/p8 ext4 encryptable
 
     mount_all ./fstab.p3
+    swapon_all ./fstab.p3
 
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
+
+    # add zram parameters
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 70
 
 on post-fs-data
 # we will remap this as /storage/sdcard0 with the sdcard fuse tool
