@@ -69,7 +69,10 @@ PRODUCT_PROPERTY_OVERRIDES := \
     dalvik.vm.dexopt-data-only=1 \
     debug.hwui.render_dirty_regions=false \
     ro.zygote.disable_gl_preload=true \
-    persist.sys.usb.config=adb
+    persist.sys.usb.config=adb \
+    dalvik.vm.heapstartsize=5m \
+    dalvik.vm.heapgrowthlimit=64m \
+    dalvik.vm.heapsize=288m
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
