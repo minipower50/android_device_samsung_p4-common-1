@@ -44,6 +44,8 @@ on fs
 
     setprop ro.crypto.tmpfs_options size=128m,mode=0771,uid=1000,gid=1000
 
+    setprop ro.adb.secure 0
+
     # add zram parameters
     write /proc/sys/vm/page-cluster 0
     write /proc/sys/vm/swappiness 70
