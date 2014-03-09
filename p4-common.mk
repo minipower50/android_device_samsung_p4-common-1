@@ -72,10 +72,19 @@ PRODUCT_PROPERTY_OVERRIDES := \
     persist.sys.usb.config=adb \
     dalvik.vm.heapstartsize=5m \
     dalvik.vm.heapgrowthlimit=64m \
-    dalvik.vm.heapsize=288m
+    dalvik.vm.heapsize=288m \
+    debug.sf.hw=1 \
+    debug.performance.tuning=1 \
+    video.accelerate.hw=1 \
+    debug.egl.profiler=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=gpu
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+    persist.service.adb.enable=1 \
+    persist.service.debuggable=1 \
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
