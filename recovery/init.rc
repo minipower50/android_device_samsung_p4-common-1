@@ -51,16 +51,12 @@ on boot
     # Repeatable keys
     setprop ro.cwm.enable_key_repeat true
 
-    # Download mode
-    setprop ro.bootloader.mode download
-
 service ueventd /sbin/ueventd
     critical
 
 service recovery /sbin/recovery
 
 service adbd /sbin/adbd recovery
-    disabled
 
 # Recovery will start adb once it has checked the keys
 

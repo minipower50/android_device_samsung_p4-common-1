@@ -22,6 +22,18 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/samsung/p4-common/bluetoot
 BOARD_USES_GENERIC_AUDIO := false
 USE_CAMERA_STUB := false
 
+#KitKat flags
+BOARD_NEEDS_OLD_HWC_API := true
+BOARD_NEED_OMX_COMPAT := true
+BOARD_USE_MHEAP_SCREENSHOT := true
+BOARD_EGL_WORKAROUND_BUG_10194508 := true
+BOARD_EGL_NEEDS_FNW := true
+TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
+NEED_WORKAROUND_CORTEX_A9_745320 := true
+SKIP_SET_METADATA := true
+ICS_CAMERA_BLOB := true
+COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
+
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 TARGET_NO_BOOTLOADER := true
@@ -36,7 +48,9 @@ TARGET_ARCH_VARIANT_FPU := vfpv3-d16
 TARGET_CPU_SMP := true
 #TARGET_HAVE_TEGRA_ERRATA_657451 := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
+ARCH_ARM_HIGH_OPTIMIZATION := true
 ARCH_ARM_USE_NON_NEON_MEMCPY := true
+HAVE_SELINUX := false
 
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_CMDLINE := 
@@ -48,6 +62,7 @@ BOARD_PAGE_SIZE := 2048
 
 TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := tegra
+TARGET_TEGRA_VERSION := t20
 TARGET_BOOTLOADER_BOARD_NAME := p3
 #TARGET_BOARD_INFO_FILE := device/samsung/p4-common/board-info.txt
 
@@ -61,7 +76,8 @@ BOARD_EGL_CFG := device/samsung/p4-common/egl.cfg
 #BOARD_USES_OVERLAY := true
 USE_OPENGL_RENDERER := true
 
-COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB -DAUDIO_LEGACY_HACK -DHAVE_PRE_KITKAT_AUDIO_BLOB -DOLD_TEGRA
+HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 #TARGET_RECOVERY_UI_LIB := librecovery_ui_ventana
@@ -97,11 +113,11 @@ BOARD_LEGACY_NL80211_STA_EVENTS := true
 
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
 WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/dhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcmdhd_apsta.bin"
-WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcmdhd_sta.bin"
-WIFI_DRIVER_FW_PATH_P2P     := "/system/etc/wifi/bcmdhd_p2p.bin"
+WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcm4330_apsta.bin"
+WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcm4330_sta.bin"
+WIFI_DRIVER_FW_PATH_P2P     := "/system/etc/wifi/bcm4330_p2p.bin"
 WIFI_DRIVER_MODULE_NAME     := "dhd"
-WIFI_DRIVER_MODULE_ARG      := "iface_name=wlan0 firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_ARG      := "iface_name=wlan0 firmware_path=/system/etc/wifi/bcm4330_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -117,14 +133,23 @@ BOARD_CHARGING_MODE_BOOTING_LPM := "/sys/class/power_supply/battery/charging_mod
 # Custom graphics for recovery
 BOARD_CUSTOM_GRAPHICS := ../../../device/samsung/p4-common/recovery/graphics.c
 
-PRODUCT_LOCALES += \
-	en_JP \
-	en_PH
-	
 # Boot Animation
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 TARGET_BOOTANIMATION_USE_RGB565 := true
+
+BOARD_MALLOC_ALIGNMENT := 16
+TARGET_EXTRA_CFLAGS := $(call cc-option,-mtune=cortex-a9) $(call cc-option,-mcpu=cortex-a9)
+
+#define to use all of the Linaro Cortex-A9 optimized string funcs,
+#instead of subset known to work on all machines
+USE_ALL_OPTIMIZED_STRING_FUNCS := true
+
+# Skip droiddoc build to save build time
+BOARD_SKIP_ANDROID_DOC_BUILD := true
+
+# Use a smaller subset of system fonts to keep image size lower
+SMALLER_FONT_FOOTPRINT := true
 
 # Suppress EMMC WIPE
 BOARD_SUPPRESS_EMMC_WIPE := true
@@ -135,9 +160,12 @@ RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_NO_USB_STORAGE := true
+TW_NO_PARTITION_SD_CARD := true
 TW_FLASH_FROM_STORAGE := true
 TW_HAS_DOWNLOAD_MODE := true
 TW_EXCLUDE_SUPERSU := true
+TW_NO_EXFAT_FUSE := true
+TW_NO_EXFAT := true
 SP1_NAME := "efs"
 SP1_BACKUP_METHOD := files
 SP1_MOUNTABLE := 1

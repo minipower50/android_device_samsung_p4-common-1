@@ -67,23 +67,33 @@ PRODUCT_PROPERTY_OVERRIDES := \
     ro.sf.lcd_density=160 \
     ro.bq.gpu_to_cpu_unsupported=1 \
     dalvik.vm.dexopt-data-only=1 \
-    debug.hwui.render_dirty_regions=false
+    debug.hwui.render_dirty_regions=false \
+    ro.zygote.disable_gl_preload=true \
+    persist.sys.usb.config=adb \
+    dalvik.vm.heapstartsize=5m \
+    dalvik.vm.heapgrowthlimit=64m \
+    dalvik.vm.heapsize=288m \
+    debug.sf.hw=1 \
+    debug.performance.tuning=1 \
+    video.accelerate.hw=1 \
+    debug.egl.profiler=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=gpu
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.sys.usb.config=mtp
+    persist.service.adb.enable=1 \
+    persist.service.debuggable=1 \
+    persist.sys.usb.config=mtp,adb \
+    ro.adb.secure=0
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-    $(LOCAL_PATH)/wifi/bcmdhd_apsta.bin:system/etc/wifi/bcmdhd_apsta.bin \
-    $(LOCAL_PATH)/wifi/bcmdhd_p2p.bin:system/etc/wifi/bcmdhd_p2p.bin \
-    $(LOCAL_PATH)/wifi/bcmdhd_sta.bin:system/etc/wifi/bcmdhd_sta.bin
+    $(LOCAL_PATH)/wifi/bcm4330_apsta.bin:system/etc/wifi/bcm4330_apsta.bin \
+    $(LOCAL_PATH)/wifi/bcm4330_p2p.bin:system/etc/wifi/bcm4330_p2p.bin \
+    $(LOCAL_PATH)/wifi/bcm4330_sta.bin:system/etc/wifi/bcm4330_sta.bin
 
 PRODUCT_PACKAGES += \
         libinvensense_mpl
-
-# Torch
-PRODUCT_PACKAGES += \
-        Torch
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -129,8 +139,12 @@ PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory \
     power.p3 \
-    libnetcmdiface \
-    WiFiDirectDemo
+    libnetcmdiface
+
+# Disable SELinux
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.boot.selinux=disabled \
+    ro.build.selinux=0
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -139,6 +153,10 @@ PRODUCT_PACKAGES += \
 
 DEVICE_PACKAGE_OVERLAYS := \
     $(LOCAL_PATH)/overlay
+
+# init.d scripts
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/init.d/00random:system/etc/init.d/00random
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 

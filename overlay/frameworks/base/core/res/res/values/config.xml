@@ -20,6 +20,8 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
+    <!-- If this is true, the screen will fade off. -->
+    <bool name="config_animateScreenLights">false</bool>
 
     <bool name="config_showNavigationBar">true</bool>
 
@@ -102,16 +104,7 @@
    <!-- Boolean indicating whether the wifi chipset has background scan support -->
    <bool translatable="false" name="config_wifi_background_scan_support">true</bool>
 
-    <!-- Boolean indicating whether the wifi chipset has p2p support -->
-    <!-- <bool translatable="false" name="config_wifi_p2p_support">true</bool> -->
-
     <bool name="config_forceDisableHardwareKeyboard">true</bool>
-
-    <!--  **** GANBAROU ADDITIONS STARTS **** -->
-    <!-- True will enable the electron beam screen-off animation. -->
-    <bool name="config_screenOffAnimation">true</bool>
-    <bool name="config_animateScreenLights">false</bool>
-    <!--  **** GANBAROU ADDITIONS END **** -->
 
     <!--  Maximum number of supported users -->
     <integer name="config_multiuserMaximumUsers">5</integer>
