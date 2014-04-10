@@ -95,6 +95,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
         libinvensense_mpl
 
+<<<<<<< HEAD
+=======
+# Omni packages
+PRODUCT_PACKAGES += \
+        OmniTorch \
+        OmniSwitch
+
+>>>>>>> upstream/nameless
 # Audio
 PRODUCT_PACKAGES += \
         audio.a2dp.default \
