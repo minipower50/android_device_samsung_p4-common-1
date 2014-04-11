@@ -81,10 +81,10 @@ PRODUCT_PROPERTY_OVERRIDES := \
     debug.composition.type=gpu
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    persist.service.adb.enable=1 \
+    persist.service.adb.enable=0 \
     persist.service.debuggable=1 \
     persist.sys.usb.config=mtp,adb \
-    ro.adb.secure=0
+    ro.adb.secure=1
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
@@ -95,14 +95,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
         libinvensense_mpl
 
-<<<<<<< HEAD
-=======
-# Omni packages
-PRODUCT_PACKAGES += \
-        OmniTorch \
-        OmniSwitch
-
->>>>>>> upstream/nameless
 # Audio
 PRODUCT_PACKAGES += \
         audio.a2dp.default \
